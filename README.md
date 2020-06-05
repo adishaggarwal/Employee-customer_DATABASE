@@ -9,6 +9,9 @@ Postgres is used to store the data(locally).
 # TECHNOLOGIES USED
 Postegresql,Node(Express),Angular
 
+# AUTHOR
+Adish Aggarwal
+
 # SCREENSHOTS
 
 ![](images/1.JPG)
