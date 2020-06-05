@@ -1,0 +1,110 @@
+<div class="container-fluid">
+   
+    <hr>
+    <hr>
+    <div>
+        <button class="btn btn-success" (click)="loaddata()">{{buttonname}}</button>
+    </div>
+    <hr>
+    <hr>
+    <div>
+        <button class="btn btn-primary" [disabled]="!addrow" (click)="adduser()">ADD CUSTOMER</button>
+    </div>
+    <hr>
+    <div>
+        <table  class="table">
+
+              <thead>
+                  <tr>
+                       <th  *ngFor="let column of columns">{{column}}</th> 
+                  </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let user of userdata;index as row">
+
+                    <td> <input type="text"
+                    class="tableTextBox"
+                    name="customerid"
+                    readonly
+                    [(ngModel)]="userdata[row].customer_id"
+                    #customerid="ngModel">
+
+                    <div *ngIf="customerid.invalid"
+                    class="alert alert-danger">
+                    <div *ngIf="customerid.errors.required">
+                        Customer ID is required.
+                    </div>
+                </div>
+                    </td>
+
+                    <td><input type="text"
+                        class="tableTextBox"
+                        name="website"
+                        [readonly]="!iseditable[row]"
+                        required
+                        [(ngModel)]="userdata[row].website"
+                        #website="ngModel">
+                        <div *ngIf="website.invalid"
+                            class="alert alert-danger">
+                            <div>
+                                website is required.
+                            </div>
+                        </div>
+                    </td>
+
+                    <td><input type="button"
+                        class="btn btn-success"
+                        [value]="editbtn"
+                        (click)="editdata(row)"
+                        *ngIf="showedit[row] && !customerid.invalid && !website.invalid">
+                    </td>
+
+                    <td><input type="button"
+                        class="btn btn-danger"
+                        [value]="deletebtn"
+                        (click)="deletedata(row)"
+                        *ngIf="showdelete[row]">
+                    </td>
+
+                    <td><input type="button"
+                        class="btn btn-info"
+                        value="SHOW USERS"
+                        (click)="showusers(userdata[row].customer_id)"
+                        *ngIf="displayusers[row]">
+                    </td>
+
+                </tr>
+              </tbody>
+
+        </table>
+    </div>
+    <hr>
+    <hr>
+    <div *ngIf="displaydata && theusers.length>0">
+       <table class="table">
+           <thead>
+               <tr>
+                   <th>First-Name</th>
+                   <th>Middle-Name</th>
+                   <th>Last-Name</th>
+                   <th>Email</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr *ngFor="let user of theusers;index as x">
+                   <td>{{user.firstname}}</td>
+                   <td>{{user.middlename}}</td>
+                   <td>{{user.lastname}}</td>
+                   <td>{{user.email}}</td>
+               </tr>
+           </tbody>
+       </table>
+    </div>
+
+    <div *ngIf="displaydata && theusers.length==0">
+        <h1>SORRY THERE ARE NO USERS !!</h1>
+    </div>
+
+</div>
+
